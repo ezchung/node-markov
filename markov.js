@@ -28,24 +28,39 @@ class MarkovMachine {
    *  }
    * */
 
-  getChains() { //TODO: refactoring: look in object to check. Currently looking at entire list
-    let wordChain = {};
-    for (let uniqueWord of this.uniqueWords) {
-      wordChain[uniqueWord] = [];
-      for (let i = 0; i < this.words.length; i++) {
-        if (uniqueWord === this.words[i]) {
+  // getChains() { //TODO: refactoring: look in object to check. Currently looking at entire list
+  //   let wordChain = {};
+  //   for (let uniqueWord of this.uniqueWords) {
+  //     wordChain[uniqueWord] = [];
+
+  //     for (let i = 0; i < this.words.length; i++) {
+  //       if (uniqueWord === this.words[i]) {
           
-          if (this.words[i + 1] === undefined) {
-            let nextWord = null;
-            wordChain[uniqueWord].push(nextWord);
-          } else {
-            let nextWord = this.words[i + 1];
-            wordChain[uniqueWord].push(nextWord);
-          }
-        }
+  //         if (this.words[i + 1] === undefined) {
+  //           let nextWord = null;
+  //           wordChain[uniqueWord].push(nextWord);
+  //         } else {
+  //           let nextWord = this.words[i + 1];
+  //           wordChain[uniqueWord].push(nextWord);
+  //         }
+  //       }
+  //     }
+  //   }
+  //   return wordChain;
+  // }
+
+  getChains(){
+    let wordChain = {};
+    for(let i = 0; i < this.words.length; i++){
+      let currWord = this.words[i];
+      let nextWord = this.words[i+1];
+      if(currWord in wordChain){
+        wordChain[currWord].push(nextWord);
+      }else{
+        wordChain[currWord] = [nextWord];
       }
     }
-    return wordChain;
+    return wordChain
   }
 
 
@@ -69,10 +84,8 @@ class MarkovMachine {
       }
 //NOTE: More explicit with Math.round. Then we can predict and form our logic
 //Note: helper function for getting randomIndx and passing the item back in
-      if (currentWord !== null) {
+      if (currentWord) {
         sentence += ` ${currentWord}`;
-      } else { //TODO: Don't need as already done
-        break;
       }
     }
 
@@ -108,6 +121,6 @@ module.exports = {
 //const newMarkovMachine = new MarkovMachine(text);
 
 //newMarkovMachine.getText();
-// const catInHatMachine = new MarkovMachine("the cat in the hat is oddly shaped");
+const catInHatMachine = new MarkovMachine("the cat in the hat is oddly shaped");
 
-// catInHatMachine.getText()
+catInHatMachine.getText()
