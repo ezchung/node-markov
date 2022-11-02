@@ -1,3 +1,7 @@
+"use strict";
+
+const fsP = require("fs/promises");
+
 /** Textual markov chain generator. */
 
 
@@ -97,30 +101,29 @@ class MarkovMachine {
 
 
 
-let textSnippet = `I would not like them
-Here or there.
-I would not like them
-Anywhere.
-I do not like
-Green eggs and ham.
-I do not like them,
-Sam-I-am
+// let textSnippet = `I would not like them
+// Here or there.
+// I would not like them
+// Anywhere.
+// I do not like
+// Green eggs and ham.
+// I do not like them,
+// Sam-I-am
 
-Would you like them
-In a house?
-Would you like them
-With a mouse?
-`;
+// Would you like them
+// In a house?
+// Would you like them
+// With a mouse?
+// `;
 
-//Do we need to put documentation on this??
 module.exports = {
   MarkovMachine,
-  textSnippet,
+  // textSnippet,
 }
 
 //const newMarkovMachine = new MarkovMachine(text);
 
 //newMarkovMachine.getText();
-const catInHatMachine = new MarkovMachine("the cat in the hat is oddly shaped");
+// const catInHatMachine = new MarkovMachine("the cat in the hat is oddly shaped");
 
-catInHatMachine.getText()
+// catInHatMachine.getText()
