@@ -28,7 +28,7 @@ class MarkovMachine {
    *  }
    * */
 
-  getChains() {
+  getChains() { //TODO: refactoring: look in object to check. Currently looking at entire list
     let wordChain = {};
     for (let uniqueWord of this.uniqueWords) {
       wordChain[uniqueWord] = [];
@@ -67,10 +67,11 @@ class MarkovMachine {
         let randIdx = Math.round(Math.random() * (numPossibleWords - 1));
         currentWord = this.chains[currentWord][randIdx];
       }
-
+//NOTE: More explicit with Math.round. Then we can predict and form our logic
+//Note: helper function for getting randomIndx and passing the item back in
       if (currentWord !== null) {
         sentence += ` ${currentWord}`;
-      } else {
+      } else { //TODO: Don't need as already done
         break;
       }
     }
