@@ -9,13 +9,11 @@ class MarkovMachine {
     // A "word" will also include any punctuation around the word, so this will
     // include things like "The", "cat", "cat.".
     this.words = text.split(/[ \r\n]+/);
-    // \r stands for recursive. \n: new line. +: can be more than one word.
     this.uniqueWords = new Set(this.words)
     this.chains = this.getChains();
-    //console.log(this.uniqueWords);
     console.log(this.chains);
   }
-  
+
 
   /** Get markov chain: returns Map of Markov chains.
    *
@@ -31,26 +29,23 @@ class MarkovMachine {
    * */
 
   getChains() {
-    // TODO: implement this!
-    // creating an object 
-    //making the key the word, value
-    //make it unique
-    let wordChain = {}
-    for(let uniqueWord of this.uniqueWords){
+    let wordChain = {};
+    for (let uniqueWord of this.uniqueWords) {
       wordChain[uniqueWord] = [];
-      for(let i = 0; i < this.words.length; i++){
-        if(uniqueWord === this.words[i]){
-          if(this.words[i+1] === undefined){
+      for (let i = 0; i < this.words.length; i++) {
+        if (uniqueWord === this.words[i]) {
+          
+          if (this.words[i + 1] === undefined) {
             let nextWord = null;
             wordChain[uniqueWord].push(nextWord);
-          }else{
-            let nextWord = this.words[i+1];
+          } else {
+            let nextWord = this.words[i + 1];
             wordChain[uniqueWord].push(nextWord);
           }
         }
       }
     }
-    return wordChain
+    return wordChain;
   }
 
 
@@ -58,12 +53,60 @@ class MarkovMachine {
    *  until it hits a null choice. */
 
   getText() {
-    // TODO: implement this!
+    //debugger;
+    let currentWord = this.words[0];
+    let sentence = currentWord;
+    
+    while (currentWord) {
 
-    // - start at the first word in the input text
-    // - find a random word from the following-words of that
-    // - repeat until reaching the terminal null
+      let numPossibleWords = this.chains[currentWord].length;
+
+      if (numPossibleWords === 1) {
+        currentWord = this.chains[currentWord][0];
+      } else {
+        let randIdx = Math.round(Math.random() * (numPossibleWords - 1));
+        currentWord = this.chains[currentWord][randIdx];
+      }
+
+      if (currentWord !== null) {
+        sentence += ` ${currentWord}`;
+      } else {
+        break;
+      }
+    }
+
+    return console.log(sentence);
   }
 }
 
-const catInHatMachine = new MarkovMachine("the cat in the hat");
+
+
+
+
+let textSnippet = `I would not like them
+Here or there.
+I would not like them
+Anywhere.
+I do not like
+Green eggs and ham.
+I do not like them,
+Sam-I-am
+
+Would you like them
+In a house?
+Would you like them
+With a mouse?
+`;
+
+//Do we need to put documentation on this??
+module.exports = {
+  MarkovMachine,
+  textSnippet,
+}
+
+//const newMarkovMachine = new MarkovMachine(text);
+
+//newMarkovMachine.getText();
+// const catInHatMachine = new MarkovMachine("the cat in the hat is oddly shaped");
+
+// catInHatMachine.getText()
